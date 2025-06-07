@@ -16,11 +16,15 @@ public class EmailService {
 
     public void sendMail(EmailRequestDto emailRequestDto){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(emailRequestDto.getTo());
-        message.setText(emailRequestDto.getSubject());
-        message.setSubject(emailRequestDto.getSubject());
 
-        System.out.println("Subject " + message.getSubject());
+
+        System.out.println("To " + emailRequestDto.getTo());
+//        System.out.println("Subject " + emailRequestDto.getSubject());
+        message.setTo(emailRequestDto.getTo());
+        message.setSubject("Hello");
+        message.setText("Body Data");
+
+//        System.out.println("Subject " + message.getSubject());
 
         javaMailSender.send(message);
 

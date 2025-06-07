@@ -22,7 +22,12 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConsumerFactory<String, EmailRequestDto> consumerFactory() {
-        JsonDeserializer<EmailRequestDto> deserializer = new JsonDeserializer<>(EmailRequestDto.class);
+        JsonDeserializer<EmailRequestDto> deserializer = new JsonDeserializer<>(EmailRequestDto.class, false);
+
+        // ✅ Disable all type header behavior
+        deserializer.setRemoveTypeHeaders(false);
+        deserializer.setUseTypeMapperForKey(false);
+        deserializer.setUseTypeHeaders(false);
         deserializer.addTrustedPackages("*");
 
         Map<String, Object> config = new HashMap<>();
@@ -33,6 +38,7 @@ public class KafkaConsumerConfig {
 
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), deserializer);
     }
+
 
 
     @Bean
